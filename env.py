@@ -2,6 +2,7 @@ from typing import Tuple
 import gym
 from gym import spaces
 import numpy as np
+import matplotlib.pyplot as plt
 
 def ask() -> int:
     s = 'Choose action:\n\t0: up\n\t1: down\n\t2: left\n\t3: right\n'
