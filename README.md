@@ -2,5 +2,5 @@
 Learning to Play 2048 with Deep Reinforcement Learning - Algorithm Comparison
 
 ### To-Do
-- Random Agent
-- Reward Plot
+- Basic Learner Agent: Find Deep Learning Strategies
+- Improve Code Generalization for all the Agents
