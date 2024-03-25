@@ -1,4 +1,8 @@
+import matplotlib
+matplotlib.use('TkAgg')  # Cambia 'TkAgg' por el backend de tu elección
+
 import matplotlib.pyplot as plt
+
 import numpy as np
 
 from agent2048 import Env2048, RandomAgent
