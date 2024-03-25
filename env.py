@@ -4,6 +4,8 @@ from gym import spaces
 import numpy as np
 import matplotlib.pyplot as plt
 
+from agent2048 import RandomAgent
+
 def ask() -> int:
     s = 'Choose action:\n\t0: up\n\t1: down\n\t2: left\n\t3: right\n'
     return int(input(s))
@@ -85,8 +87,11 @@ class Env2048(gym.Env):
         elif a == 3:
             self.horizontal('right')
 
-        self.generate()
-        reward = int(np.sum(self.state))
+        if self.state == ant:
+            reward = 0
+        else:
+            self.generate()
+            reward = int(np.sum(self.state))
         
         terminated = not self.emptycells().size > 0
         info = {}
@@ -105,16 +110,20 @@ class Env2048(gym.Env):
         self.generate()
         return self.state
 
+def show(rewards) -> None:
+    plt.plot(rewards)
 
 def main():
     env = Env2048()
+    agent = RandomAgent()
+    
     state = env.reset()
     env.render()
 
     rewards = []
 
     while True:
-        action = ask()
+        action = agent.choose_action()
         state, reward, terminated, _ = env.step(action)
         rewards.append(reward)
         env.render()
@@ -123,6 +132,8 @@ def main():
         if terminated:
             print("Game Over!")
             break
+
+    show(rewards)
 
 if __name__ == '__main__':
     main()
