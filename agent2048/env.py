@@ -1,14 +1,6 @@
-from typing import Tuple
 import gym
 from gym import spaces
 import numpy as np
-import matplotlib.pyplot as plt
-
-from agent2048 import RandomAgent
-
-def ask() -> int:
-    s = 'Choose action:\n\t0: up\n\t1: down\n\t2: left\n\t3: right\n'
-    return int(input(s))
 
 class Env2048(gym.Env):
     metadata = {
@@ -87,7 +79,7 @@ class Env2048(gym.Env):
         elif a == 3:
             self.horizontal('right')
 
-        if self.state == ant:
+        if np.array_equal(self.state, ant): 
             reward = 0
         else:
             self.generate()
@@ -109,31 +101,3 @@ class Env2048(gym.Env):
         self.generate()
         self.generate()
         return self.state
-
-def show(rewards) -> None:
-    plt.plot(rewards)
-
-def main():
-    env = Env2048()
-    agent = RandomAgent()
-    
-    state = env.reset()
-    env.render()
-
-    rewards = []
-
-    while True:
-        action = agent.choose_action()
-        state, reward, terminated, _ = env.step(action)
-        rewards.append(reward)
-        env.render()
-        print(f"Reward: {reward}")
-
-        if terminated:
-            print("Game Over!")
-            break
-
-    show(rewards)
-
-if __name__ == '__main__':
-    main()
